@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            border: 1px solid #8457c7;
+            border-width: 0.5rem;
+            margin-top: 0.20rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            
+        }
+        .button {
+  background-color: #8457c7; 
+  color: #ffffff; 
+  border: none; 
+  padding: 10px 20px; 
+  border-radius: 5px; 
+  width: 100%;
+  /* Add more styles here as needed */
+
+
+}
+
+.button:hover {
+  background-color: #8457c7; /* Darker coral color on hover */
+}
+.radio-item {
+  display: inline-block;
+  position: relative;
+  padding: 0 6px;
+  margin: 10px 0 0;
+}
+
+.radio-item input[type='radio'] {
+  display: none;
+}
+
+.radio-item label {
+  color: #666;
+  font-weight: normal;
+}
+
+.radio-item label:before {
+  content: "";
+  display: inline-block;
+  position: relative;
+  top: 5px;
+  margin-right: 5px; /* changed margin property to margin-right */
+  width: 20px;
+  height: 20px;
+  border-radius: 11px;
+  border: 2px solid #8457c7;
+  background-color: transparent;
+}
+
+.radio-item input[type=radio]:checked + label:after {
+  border-radius: 11px;
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: 9px;
+  left: 10px;
+  content: "";
+  display: block;
+  background: #8457c7;
+}
+
+
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div style="text-align: center;">
+            <h2>Registration Form</h2>
+        </div>
+        <form class="row g-3" [formGroup]="reactiveForm" (ngSubmit)="onSubmit()">
+            <div [formGroupName]="'personalDetail'" class="col-12">
+                <div class="col-12">
+                    <label for="inputAddress" class="form-label">Name</label><br>
+                    <input type="text" class="form-control" id="inputAddress" placeholder="Enter Full Name"
+                        formControlName="fullName">
+                    <div>
+                        <!-- <small *ngIf="reactiveForm.get('personalDetail.fullName').errors?.['required']">First name is a required field</small> -->
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label for="inputAddress2" class="form-label">Email Address</label><br>
+                    <input type="text" class="form-control" id="inputAddress2" placeholder="Enter Email Address"
+                        formControlName="email">
+                    <div>
+                        <span *ngIf="!reactiveForm.get('personalDetail.email').valid && reactiveForm.get('personalDetail.email').touched"
+                            style="color: red;">Valid email required</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <label for="inputCity" class="form-label">Mobile Number</label><br>
+                <input type="tel" class="form-control" id="inputCity" placeholder="Enter Mobile Number"
+                    formControlName="mobileNumber">
+            </div>
+            <div class="col-12">
+                <label for="Address" class="form-label">Address</label><br>
+                <input type="text" class="form-control" id="Address" placeholder="Enter Address"
+                    formControlName="address">
+            </div>
+            <div class="col-12">
+                <button type="submit" class="button">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Mobile</th>
+                <th scope="col">Address</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let info of showInfo;let i = index">
+                <th>{{info.personalDetail.fullName}}</th>
+                <td>{{info.personalDetail.email}}</td>
+                <td>{{info.mobileNumber}}</td>
+                <td>{{info.address}}</td>
+                 <td>
+                  <button type="button" class="btn btn-primary" (click)="Edit(i,info)">Edit</button>
+                  <button type="button" class="btn btn-danger" (click)="deleteElement(i)">Delete</button>
+                </td>
+             
+        </tr>
+              </tbody></table>
+     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
